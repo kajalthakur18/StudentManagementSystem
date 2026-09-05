@@ -28,35 +28,83 @@ public class StudentManagementSystem {
         System.out.println("5. Delete Student");
         System.out.println("6. Exit");
        System.out.print("Enter your choice: ");
-        choice = sc.nextInt();
+        try{
+            choice = sc.nextInt();
+        } catch (Exception e){
+            System.out.println("Invalid Input! Please enter a number between 1 and 6.");
+            sc.nextLine(); // clear the buffer
+            continue;
+        }
 
         if (choice == 1){
             System.out.println("Enter Student ID: ");
-            int id = sc.nextInt();
+            int id;
+
+            try{
+                id = sc.nextInt();
+            }catch (Exception e){
+                System.out.println("Invalid Input! Please enter a valid integer for Student ID.");
+                sc.nextLine(); // clear the buffer
+                continue;
+            }
+            
             sc.nextLine();
-            System.out.println("Enter Student Name: ");
-            String name = sc.nextLine();
-            System.out.println("Enter Student Age: ");
-            int age = sc.nextInt();
-            sc.nextLine();
+            boolean exists = false;
+            for(Student s : students){
+                if(s.id == id){
+                    exists = true;
+                    break;
+                }
+            }
+            if(exists){
+                System.out.println("Student with ID " + id + " already exists!");
+            } else
+             {
+                System.out.println("Enter Student Name: ");
+                String name = sc.nextLine();
+                System.out.println("Enter Student Age: ");
+                int age;
+                try{
+                    age = sc.nextInt();
+                }catch (Exception e){
+                    System.out.println("Invalid Input! Please enter a valid integer for Student Age.");
+                    sc.nextLine(); // clear the buffer
+                    continue;
+                }
+                sc.nextLine(); // clear the buffer
             System.out.println("Enter Student Course: ");
             String course = sc.nextLine();
             Student s = new Student(id, name, age, course);
             students.add(s);
             System.out.println("Student Added Successfully!");
+             }
         }
         if (choice == 2){
+            if(students.isEmpty()){
+                System.out.println("No Students Found!");
+            } else {
             for(Student s : students){
                 System.out.println("ID: " +s.id);
                 System.out.println("Name: " +s.name);
                 System.out.println("Age: " +s.age);
                 System.out.println("Course: " +s.course);
                 System.out.println("----------------------------");
+            }
         }
         }
         if (choice == 3){
+            if(students.isEmpty()){
+                System.out.println("No Students Found!");
+            } else {
             System.out.println("Enter Student ID to Search: ");
-            int id = sc.nextInt();
+            int id;
+            try{
+                id = sc.nextInt();
+            }catch (Exception e){
+                System.out.println("Invalid Input! Please enter a valid integer for Student ID.");
+                sc.nextLine(); // clear the buffer
+                continue;
+            }
             boolean found = false;
             for(Student s : students){
                 if(s.id == id){
@@ -67,21 +115,39 @@ public class StudentManagementSystem {
                     found = true;
                     break;
                 }
-            }
+                }
+            
             if(!found){
                 System.out.println("Student Not Found!");
             }
         }
+        }
         if (choice == 4){
+            if(students.isEmpty()){
+                System.out.println("No Students Found!");
+            } else {
             System.out.println("Enter Student ID to Update: ");
-            int updatedId = sc.nextInt();
+            int updatedId;
+            try{
+                updatedId = sc.nextInt();
+            }catch (Exception e){
+                System.out.println("Invalid Input! Please enter a valid integer for Student ID.");
+                sc.nextLine(); // clear the buffer
+                continue;
+            }
             boolean found = false;
             for(Student s : students){
                 if(s.id == updatedId){
                     System.out.println("Enter New Name: ");
                     s.name = sc.next();
                     System.out.println("Enter New Age: ");
-                    s.age = sc.nextInt();
+                    try{
+                        s.age = sc.nextInt();
+                    }catch (Exception e){
+                        System.out.println("Invalid Input! Please enter a valid integer for Student Age.");
+                        sc.nextLine(); // clear the buffer
+                        continue;
+                    }
                     System.out.println("Enter New Course: ");
                     s.course = sc.next();
                     System.out.println("Student Updated Successfully!");
@@ -89,13 +155,25 @@ public class StudentManagementSystem {
                     break;
                 }
             }
+            
             if(!found){
                 System.out.println("Student Not Found!");
             }
         }
+        }
         if (choice == 5){
+            if(students.isEmpty()){
+                System.out.println("No Students Found!");
+            } else {
             System.out.println("Enter Student ID to Delete: ");
-            int deletedId = sc.nextInt();
+            int deletedId;
+            try{
+                deletedId = sc.nextInt();
+            }catch (Exception e){
+                System.out.println("Invalid Input! Please enter a valid integer for Student ID.");
+                sc.nextLine(); // clear the buffer
+                continue;
+            }
             boolean found = false;
             for(Student s : students){
                 if(s.id == deletedId){
@@ -104,10 +182,12 @@ public class StudentManagementSystem {
                     found = true;
                     break;
                 }
-            }
+                }
+            
             if(!found){
                 System.out.println("Student Not Found!");
             }
+        }
         }
         if (choice == 6){
             System.out.println("Thank you for using Student Management System!");
