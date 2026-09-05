@@ -33,12 +33,14 @@ public class StudentManagementSystem {
         if (choice == 1){
             System.out.println("Enter Student ID: ");
             int id = sc.nextInt();
+            sc.nextLine();
             System.out.println("Enter Student Name: ");
-            String name = sc.next();
+            String name = sc.nextLine();
             System.out.println("Enter Student Age: ");
             int age = sc.nextInt();
+            sc.nextLine();
             System.out.println("Enter Student Course: ");
-            String course = sc.next();
+            String course = sc.nextLine();
             Student s = new Student(id, name, age, course);
             students.add(s);
             System.out.println("Student Added Successfully!");
